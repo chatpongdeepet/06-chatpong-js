@@ -53,7 +53,7 @@ const saveProductsToLocalStorage = () => {
 if (addProductButton) {
     addProductButton.addEventListener("click", () => {
         const productNameText = productName.value;
-        const productPriceValue = parseFloat(productPrice.value); // Ensure price is a number
+        const productPriceValue = parseFloat(productPrice.value);
         const productImageValue = productImage.value;
 
         if (productNameText && productPriceValue && productImageValue) {
@@ -225,10 +225,10 @@ const renderProduct = (products) => {
                 addProduct(element.id)
             );
 
-            const addToCart = document.createElement("img");
-            addToCart.src = cartIcon;
+            const addToCart = document.createElement("p");
+            addToCart.textContent = "+";
             addToCart.className =
-                "absolute w-12 bottom-3 right-3 border p-1 bg-white rounded-lg bg-blue-500";
+                "absolute text-4xl bottom-3 right-3 border border-black bg-white rounded-lg p-2 text-center font-bold";
 
             cardIconLink.appendChild(addToCart);
 
@@ -280,13 +280,15 @@ const renderCart = (cartItems) => {
             productCartList.appendChild(cardContainer);
 
             total += element.price * element.quantity;
-            totalPrice.innerHTML = `Total Price: ${total.toFixed(2)}`;
-            totalPrice.className = "mt-8 text-right text-3xl font-bold";
         });
+
+        totalPrice.innerHTML = `Total Price: ${total.toFixed(2)}`;
+        totalPrice.className = "mt-8 text-right text-3xl font-bold";
     }
 };
 
 window.addEventListener("DOMContentLoaded", () => {
+    localStorage.clear(); // Clear localStorage on page load
     renderDashboard(products);
     renderProduct(products);
     loadCartFromLocalStorage();
