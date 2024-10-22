@@ -1,4 +1,3 @@
-// Selecting elements from index.html
 const productName = document.querySelector("#product-name-input");
 const productPrice = document.querySelector("#product-price-input");
 const productImage = document.querySelector("#product-image-input");
@@ -9,7 +8,6 @@ const productListDashboard = document.querySelector(
     "#product-list-dashboard"
 );
 const productList = document.querySelector("#product-list");
-
 const productCartList = document.querySelector("#product-cart");
 
 const cartIcon = "./images/add-50.png";
@@ -45,25 +43,22 @@ if (products.length === 0) {
             img: "https://i.pinimg.com/enabled_hi/564x/1d/d1/33/1dd13347367952e60b9ac0ec8895c4de.jpg",
         },
     ];
-    // Save the default products to localStorage
     localStorage.setItem("products", JSON.stringify(products));
 }
 
-// Function to save products to localStorage
 const saveProductsToLocalStorage = () => {
     localStorage.setItem("products", JSON.stringify(products));
 };
 
-// Add product button functionality
 if (addProductButton) {
     addProductButton.addEventListener("click", () => {
         const productNameText = productName.value;
-        const productPriceValue = productPrice.value;
+        const productPriceValue = parseFloat(productPrice.value); // Ensure price is a number
         const productImageValue = productImage.value;
 
         if (productNameText && productPriceValue && productImageValue) {
             const product = {
-                id: Date.now(), // Ensure unique ID
+                id: Date.now(),
                 name: productNameText,
                 price: productPriceValue,
                 img: productImageValue,
@@ -79,7 +74,6 @@ if (addProductButton) {
     });
 }
 
-// Edit product functionality
 const editProduct = (id) => {
     const product = products.find((e) => e.id === id);
     if (product) {
@@ -90,15 +84,15 @@ const editProduct = (id) => {
             product.name = newProductName.trim();
         }
 
-        if (newProductPrice !== null) {
+        if (newProductPrice !== null && !isNaN(newProductPrice)) {
             product.price = parseFloat(newProductPrice);
         }
-        saveProductsToLocalStorage(); // Save changes to localStorage
+
+        saveProductsToLocalStorage();
         renderDashboard(products);
     }
 };
 
-// Delete product functionality
 const deleteProduct = (id) => {
     const product = products.find((e) => e.id === id);
 
@@ -125,8 +119,8 @@ const addProduct = (id) => {
             productCart.push({ ...product, quantity: 1 });
         }
 
-        saveCartToLocalStorage(); // Save updated cart to localStorage
-        renderCart(productCart); // Re-render cart with updated products
+        saveCartToLocalStorage();
+        renderCart(productCart);
     }
 };
 
@@ -141,7 +135,6 @@ const loadCartFromLocalStorage = () => {
     }
 };
 
-// Render the product list in the admin dashboard
 const renderDashboard = (products) => {
     if (productListDashboard) {
         productListDashboard.innerHTML = "";
@@ -197,7 +190,6 @@ const renderDashboard = (products) => {
     }
 };
 
-// Render the product list for the shopping page
 const renderProduct = (products) => {
     if (productList) {
         productList.innerHTML = "";
@@ -242,7 +234,6 @@ const renderProduct = (products) => {
 
             cardContainer.appendChild(cardImageCrop);
             cardContainer.appendChild(cardItemInfo);
-            // cardContainer.appendChild(cardProductName);
             cardContainer.appendChild(cardIconLink);
 
             productList.appendChild(cardContainer);
@@ -252,7 +243,7 @@ const renderProduct = (products) => {
 
 const renderCart = (cartItems) => {
     if (productCartList) {
-        productCartList.innerHTML = ""; // Clear the cart before rendering
+        productCartList.innerHTML = "";
 
         let total = 0;
 
@@ -279,7 +270,7 @@ const renderCart = (cartItems) => {
             ).toFixed(2)} THB`;
 
             const cardQuantity = document.createElement("p");
-            cardQuantity.textContent = `Quantity: ${element.quantity}`; // Display quantity
+            cardQuantity.textContent = `Quantity: ${element.quantity}`;
 
             cardContainer.appendChild(cardImageCrop);
             cardContainer.appendChild(cardProductName);
@@ -288,17 +279,16 @@ const renderCart = (cartItems) => {
 
             productCartList.appendChild(cardContainer);
 
-            
             total += element.price * element.quantity;
             totalPrice.innerHTML = `Total Price: ${total.toFixed(2)}`;
-            totalPrice.className = 'mt-8 text-right text-3xl font-bold'
+            totalPrice.className = "mt-8 text-right text-3xl font-bold";
         });
     }
 };
 
 window.addEventListener("DOMContentLoaded", () => {
-    renderDashboard(products); //Admin
-    renderProduct(products); //Shopping
-    loadCartFromLocalStorage(); // Load cart from localStorage
+    renderDashboard(products);
+    renderProduct(products);
+    loadCartFromLocalStorage();
     renderCart(productCart);
 });
