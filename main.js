@@ -14,42 +14,34 @@ const cartIcon = "./images/add-50.png";
 
 let productCart = [];
 
-let products = JSON.parse(localStorage.getItem("products")) || [];
+let products = [
+    {
+        id: 0,
+        name: "Product 1",
+        price: 500.0,
+        img: "https://i.pinimg.com/enabled_hi/564x/fe/a4/bc/fea4bc6cf91b5868621b176e457f51d8.jpg",
+    },
+    {
+        id: 1,
+        name: "Product 2",
+        price: 750.0,
+        img: "https://i.pinimg.com/enabled_hi/564x/4d/99/12/4d991212fe9a212c93e65c304fbdb6c9.jpg",
+    },
+    {
+        id: 2,
+        name: "Product 3",
+        price: 1000.0,
+        img: "https://i.pinimg.com/enabled_hi/564x/0e/e7/19/0ee719eb218bfac174b0c7b27b6716e0.jpg",
+    },
+    {
+        id: 3,
+        name: "Product 4",
+        price: 1200.0,
+        img: "https://i.pinimg.com/enabled_hi/564x/1d/d1/33/1dd13347367952e60b9ac0ec8895c4de.jpg",
+    },
+];
 
-if (products.length === 0) {
-    products = [
-        {
-            id: 0,
-            name: "Product 1",
-            price: 500.0,
-            img: "https://i.pinimg.com/enabled_hi/564x/fe/a4/bc/fea4bc6cf91b5868621b176e457f51d8.jpg",
-        },
-        {
-            id: 1,
-            name: "Product 2",
-            price: 750.0,
-            img: "https://i.pinimg.com/enabled_hi/564x/4d/99/12/4d991212fe9a212c93e65c304fbdb6c9.jpg",
-        },
-        {
-            id: 2,
-            name: "Product 3",
-            price: 1000.0,
-            img: "https://i.pinimg.com/enabled_hi/564x/0e/e7/19/0ee719eb218bfac174b0c7b27b6716e0.jpg",
-        },
-        {
-            id: 3,
-            name: "Product 4",
-            price: 1200.0,
-            img: "https://i.pinimg.com/enabled_hi/564x/1d/d1/33/1dd13347367952e60b9ac0ec8895c4de.jpg",
-        },
-    ];
-    localStorage.setItem("products", JSON.stringify(products));
-}
-
-const saveProductsToLocalStorage = () => {
-    localStorage.setItem("products", JSON.stringify(products));
-};
-
+// Event listener for adding new products
 if (addProductButton) {
     addProductButton.addEventListener("click", () => {
         const productNameText = productName.value;
@@ -64,8 +56,9 @@ if (addProductButton) {
                 img: productImageValue,
             };
             products.push(product);
-            saveProductsToLocalStorage();
+
             renderDashboard(products);
+            renderProduct(products);
 
             productName.value = "";
             productPrice.value = 0;
@@ -74,6 +67,7 @@ if (addProductButton) {
     });
 }
 
+// Edit a product
 const editProduct = (id) => {
     const product = products.find((e) => e.id === id);
     if (product) {
@@ -88,11 +82,11 @@ const editProduct = (id) => {
             product.price = parseFloat(newProductPrice);
         }
 
-        saveProductsToLocalStorage();
         renderDashboard(products);
     }
 };
 
+// Delete a product
 const deleteProduct = (id) => {
     const product = products.find((e) => e.id === id);
 
@@ -102,11 +96,11 @@ const deleteProduct = (id) => {
 
     if (confirmation) {
         products = products.filter((e) => e.id !== id);
-        saveProductsToLocalStorage();
         renderDashboard(products);
     }
 };
 
+// Add a product to the cart
 const addProduct = (id) => {
     const product = products.find((e) => e.id === id);
 
@@ -119,22 +113,11 @@ const addProduct = (id) => {
             productCart.push({ ...product, quantity: 1 });
         }
 
-        saveCartToLocalStorage();
         renderCart(productCart);
     }
 };
 
-const saveCartToLocalStorage = () => {
-    localStorage.setItem("productCart", JSON.stringify(productCart));
-};
-
-const loadCartFromLocalStorage = () => {
-    const storedCart = JSON.parse(localStorage.getItem("productCart"));
-    if (storedCart) {
-        productCart = storedCart;
-    }
-};
-
+// Render product dashboard
 const renderDashboard = (products) => {
     if (productListDashboard) {
         productListDashboard.innerHTML = "";
@@ -190,6 +173,7 @@ const renderDashboard = (products) => {
     }
 };
 
+// Render product list
 const renderProduct = (products) => {
     if (productList) {
         productList.innerHTML = "";
@@ -241,6 +225,7 @@ const renderProduct = (products) => {
     }
 };
 
+// Render shopping cart
 const renderCart = (cartItems) => {
     if (productCartList) {
         productCartList.innerHTML = "";
@@ -287,10 +272,9 @@ const renderCart = (cartItems) => {
     }
 };
 
+// Initialize the page
 window.addEventListener("DOMContentLoaded", () => {
-    localStorage.clear(); // Clear localStorage on page load
     renderDashboard(products);
     renderProduct(products);
-    loadCartFromLocalStorage();
     renderCart(productCart);
 });
