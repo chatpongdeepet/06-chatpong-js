@@ -3,21 +3,30 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="icon" type="image/svg+xml" href="./src/images/fav.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite App</title>
+  <title>06 Chatpong JS</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <header id="navbar" class="border-b-2">
+  <header id="navbar" class="border-b-2 sticky top-0 bg-white">
     <div class="max-w-4xl mx-auto">
       <nav class="flex justify-between items-center h-[64px]">
         <a href="#" class="font-bold text-2xl text-gray-800">Chatpong</a>
         <ul class="flex w-80 justify-between">
-          <li><a href="#">HOME</a></li>
-          <li><a href="#">SHOPPING</a></li>
-          <li><a href="#">Sign-in</a></li>
+          <li
+            class="px-3 relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-700 rounded-lg border-2 focus:ring-4 focus:outline-none hover:bg-gradient-to-br from-cyan-500 to-blue-500 hover:text-white">
+            <a href="#">HOME</a>
+          </li>
+          <li
+            class="px-3 relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-700 rounded-lg border-2 focus:ring-4 focus:outline-none hover:bg-gradient-to-br from-cyan-500 to-blue-500 hover:text-white">
+            <a href="#">SHOPPING</a>
+          </li>
+          <li
+            class="px-3 relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-700 rounded-lg border-2 focus:ring-4 focus:outline-none hover:bg-gradient-to-br from-cyan-500 to-blue-500 hover:text-white">
+            <a href="#">Sign-in</a>
+          </li>
         </ul>
       </nav>
     </div>
@@ -28,32 +37,40 @@
       <div class="border w-1/2 rounded-lg m-3 bg-slate-200">
         <div class="p-2">
           <h2 class="pb-2 font-bold">Product Name</h2>
-          <input type="text" name="" id="" placeholder="Product name..." class="w-full rounded-md pl-4">
+          <input type="text" name="" id="product-name-input" placeholder="Product name..."
+            class="w-full rounded-md pl-4">
         </div>
       </div>
       <div class="border w-1/2 rounded-lg m-3 bg-slate-200">
         <div class="p-2">
           <h2 class="pb-2 font-bold">Product price</h2>
-          <input type="number" name="" id="" placeholder="Product price..." class="w-full rounded-md pl-4">
+          <input type="number" name="" id="product-price-input" placeholder="Product price..."
+            class="w-full rounded-md pl-4">
         </div>
       </div>
       <div class="border w-1/2 rounded-lg m-3 bg-slate-200">
         <div class="p-2">
-          <h2 class="pb-2 font-bold">Product price</h2>
-          <input type="url" name="" id="" placeholder="Product image url..." class="w-full rounded-md pl-4">
+          <h2 class="pb-2 font-bold">Product img</h2>
+          <input type="url" name="" id="product-image-input" placeholder="Product image url..."
+            class="w-full rounded-md pl-4">
         </div>
       </div>
       <button
-        class="m-3 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">+
+        class="m-3 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        id="add-product-bnt">+
         Add product</button>
     </div>
-    <div id="product-dashboard" class=" max-w-4xl mx-auto border-b-2 pb-3">
-      <h2 class="font-bold text-xl text-center">Product List</h2>
-
+    <div id="product-dashboard" class=" max-w-4xl mx-auto border-b-2 pb-3 my-6">
+      <h2 class="font-bold text-xl text-center">Product List Dashboard</h2>
+      <div id="product-list" class="grid grid-cols-4 gap-4  p-2"></div>
     </div>
-    <div id="cart" class=" max-w-4xl mx-auto border-b-2 pb-3">
+    <div id="product-list" class=" max-w-4xl mx-auto border-b-2 pb-3 my-6">
+      <h2 class="font-bold text-xl text-center">Product List</h2>
+      <div id="product-list" class="grid grid-cols-4 gap-4  p-2"></div>
+    </div>
+    <div id="cart" class=" max-w-4xl mx-auto border-b-2 pb-3 my-6">
       <h2 class="font-bold text-xl text-center">Cart</h2>
-
+      <div id="product-cart" class="grid grid-cols-4 gap-4"></div>
     </div>
 
   </main>
